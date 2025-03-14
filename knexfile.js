@@ -7,19 +7,16 @@ module.exports = {
 
   development: {
     client: "pg", //client: "pg" tells Knex that we're using PostgreSQL.
-      connection: process.env.DATABASE_URL, //connection defines the database connection details.
-      //enhanced connection 
-      /*
+      //connection defines the database connection details.
+    
       connection: {
       host: "localhost",
-      url: process.env.DATABASE_URL //don't expose user, password and database
-      timezone: "UTC"
+      //user:
+      //password:
+      //database: 
+      timezone: "UTC" 
     },
-      */
-
-    //migrations and seeds directories will store database schema definitions and sample data.
-      migrations: { directory: "./migrations" },
-      seeds: { directory: "./seeds" }
+      
     //init generation
     /*
     client: 'sqlite3',
@@ -27,12 +24,15 @@ module.exports = {
       filename: './dev.sqlite3'
     }
     */
+    //migrations and seeds directories will store database schema definitions and sample data.
+    migrations: { directory: "./migrations" },
+    seeds: { directory: "./seeds" }
     
   },
 
   staging: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URL, 
+    //connection: process.env.DATABASE_URL, 
     /*
      connection: {
       database: 'my_db',
@@ -51,7 +51,7 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URL, 
+    //connection: process.env.DATABASE_URL, 
     /*
      connection: {
       database: 'my_db',

@@ -1,6 +1,29 @@
 {
   "dependencies": {
+    "dotenv": "^16.4.7", 
+    "express": "^4.21.2",
     "knex": "^3.1.0",
     "pg": "^8.14.0"
-  }
+  },
+  "name": "du-aip-booking-platform-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate": "knex migrate:latest",
+    "seed": "knex seed:run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kitamreik/du-aip-booking-platform-backend.git"
+  },
+  "author": "Kit Fenrir Amreik (they/she)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kitamreik/du-aip-booking-platform-backend/issues"
+  },
+  "homepage": "https://github.com/Kitamreik/du-aip-booking-platform-backend#readme",
+  "description": ""
 }
