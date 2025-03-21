@@ -1,12 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const BookingController = require("../controllers/bookingController");
+const bookingController = require("../controllers/bookingController");
+const { verifyAdmin } = require("../middleware/authMiddleware");
 
-router.get("/", BookingController.getAllBookings);
-router.get("/:id", BookingController.getBookingById);
-router.post("/", BookingController.createBooking);
-router.put("/:id", BookingController.updateBooking);
-router.delete("/:id", BookingController.deleteBooking);
+router.get("/", bookingController.getAllBookings);
+router.get("/:id", bookingController.getBookingById);
+
+//secure routes
+router.post("/", verifyAdmin, bookingController.createBooking);
+router.put("/:id", verifyAdmin, bookingController.updateBooking);
+router.delete("/:id", verifyAdmin,bookingController.deleteBooking);
 
 module.exports = router;
 //Enhanced Booking Management
