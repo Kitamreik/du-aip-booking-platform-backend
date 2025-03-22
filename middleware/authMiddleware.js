@@ -1,18 +1,22 @@
-const { ClerkExpressWithAuth, users } = require("@clerk/clerk-sdk-node");
+const { requireAuth } = require("@clerk/express");
+const { getUser } = require("@clerk/clerk-sdk-node"); // still used for full user objects
+
 
 //Clerk Integration
-const verifyAdmin = ClerkExpressWithAuth(async (req, res, next) => {
-  const userId = req.auth.userId;
+const verifyAdmin = requireAuth(async (req, res, next) => {
+  const {userId} = req.auth;
 
   try {
-    const user = await users.getUser(userId); //fetches the user’s role from Clerk’s publicMetadata.
+    const user = await getUser(userId); //fetches the user’s role from Clerk’s publicMetadata.
+    const role = user.publicMetadata.role;
 
-    if (user.publicMetadata.role === "admin") {
+    if ( role === "admin") {
       return next();
     } else {
       return res.status(403).json({ error: "Access denied. Admins only." });
     }
   } catch (error) {
+    console.log("Clerk error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
