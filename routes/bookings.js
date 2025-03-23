@@ -4,7 +4,8 @@ const bookingController = require("../controllers/bookingController");
 const { verifyAdmin } = require("../middleware/authMiddleware");
 
 router.route("/").get(bookingController.getAllBookings); // open to all logged-in users
-router.route("/:id").get(bookingController.getBookingById);
+router.route("/:id").get(bookingController.getBookingById); 
+
 
 //secure routes
 router.route("/create").post(bookingController.createBooking, verifyAdmin);

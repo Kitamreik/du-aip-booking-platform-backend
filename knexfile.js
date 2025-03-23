@@ -11,7 +11,7 @@ const dbConfig = parse(dbUrl);
 if (!dbUrl) {
   throw new Error("DATABASE_URL is not defined in .env");
 } else {
-  console.log("Using DB connection:", dbConfig);
+  console.log("DB Connection established. Use PORT",`${process.env.DB_PORT}`,"to fetch the back end routes")
 }
 
 const isProduction = process.env.NODE_ENV === "production"; //prod check
@@ -22,7 +22,7 @@ module.exports = {
     client: "pg", //client: "pg" tells Knex that we're using PostgreSQL.
       //connection defines the database connection details.
     
-      connection: {
+    connection: {
       host: dbConfig.host, //"localhost"
       user: dbConfig.user, 
       password: dbConfig.password,
@@ -30,7 +30,7 @@ module.exports = {
       port: dbConfig.port ? Number(dbConfig.port) : 5432, //postgres port 
       timezone: "UTC",
       ssl: dbConfig.ssl || false, // important if using Render or hosted Postgres 
-      },
+    },
       
     //init generation
     /*
@@ -46,7 +46,7 @@ module.exports = {
   },
 
   staging: {
-    client: "pg", //postgresql
+    client: "postgresql", //postgresql
     connection: {
       user: dbConfig.user, 
       password: dbConfig.password,
@@ -62,7 +62,7 @@ module.exports = {
   },
 
   production: {
-    client: "pg",
+    client: "postgresql",
     connection: {
       user: dbConfig.user, 
       password: dbConfig.password,

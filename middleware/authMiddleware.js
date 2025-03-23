@@ -9,6 +9,7 @@ const verifyAdmin = requireAuth(async (req, res, next) => {
   try {
     const user = await getUser(userId); //fetches the user’s role from Clerk’s publicMetadata.
     const role = user.publicMetadata.role;
+    console.log(user, role)
 
     if ( role === "admin") {
       return next();
