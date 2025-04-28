@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(clerkMiddleware());
 
 app.use(cors({
-    origin: `"http://localhost:${process.env.REACT_PORT}"`, //frontend, https://your-frontend.vercel.app
+    origin: `${process.env.FRONT_END_VERCEL}`, //frontend, https://your-frontend.vercel.app
     credentials: true,
 }));
 
