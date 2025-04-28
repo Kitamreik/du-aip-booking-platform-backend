@@ -6,6 +6,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const cors = require("cors")
 
+const path = require('node:path');
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine','ejs');
 app.use(express.json()); 
 
 // Clerk Middleware to check authentication - protects all routes and ensures users are authenticated before accessing them, is required to be set in the middleware chain before req.auth is used, globally
