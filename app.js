@@ -33,6 +33,10 @@ app.get('/', (req, res, next) => {
     res.status(200).json({success: "Index operational"})
 })
 
+app.get('/logout', (req, res, next) => {
+  res.redirect('/')
+})
+
 // Protected route: only accessible with valid Clerk session 
 app.get("/auth-state", requireAuth(), (req, res, next) => {
     const { userId, sessionId } = req.auth;
