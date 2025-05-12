@@ -6,13 +6,27 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const cors = require("cors")
 
+const path = require('node:path');
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine','ejs');
 app.use(express.json()); 
 
 // Clerk Middleware to check authentication - protects all routes and ensures users are authenticated before accessing them, is required to be set in the middleware chain before req.auth is used, globally
 app.use(clerkMiddleware());
 
+const allowedOrigins = [
+  `http://localhost:${process.env.REACT_PORT}`,
+  `${process.env.FRONT_END_VERCEL}`
+];
+
 app.use(cors({
-    origin: `"http://localhost:${process.env.REACT_PORT}"`, //frontend, https://your-frontend.vercel.app
+    origin: function (origin, logger) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        logger(null, origin, "Origin not detected");
+      } else {
+        logger(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
 }));
 
@@ -28,6 +42,10 @@ app.get('/', (req, res, next) => {
     // const template = "development";
     // const result = clerkClient.sessions.getToken(sessionId, template)
     res.status(200).json({success: "Index operational"})
+})
+
+app.get('/logout', (req, res, next) => {
+  res.redirect('/')
 })
 
 // Protected route: only accessible with valid Clerk session 
