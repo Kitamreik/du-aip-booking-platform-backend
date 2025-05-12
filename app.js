@@ -14,8 +14,19 @@ app.use(express.json());
 // Clerk Middleware to check authentication - protects all routes and ensures users are authenticated before accessing them, is required to be set in the middleware chain before req.auth is used, globally
 app.use(clerkMiddleware());
 
+const allowedOrigins = [
+  `http://localhost:${process.env.REACT_PORT}`,
+  `${process.env.FRONT_END_VERCEL}`
+];
+
 app.use(cors({
-    origin: `${process.env.FRONT_END_VERCEL}`, //frontend, https://your-frontend.vercel.app
+    origin: function (origin, logger) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        logger(null, origin, "Origin not detected");
+      } else {
+        logger(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
 }));
 
