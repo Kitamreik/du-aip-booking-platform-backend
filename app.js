@@ -16,7 +16,7 @@ app.use(clerkMiddleware());
 
 const allowedOrigins = [
   `http://localhost:${process.env.REACT_PORT}`,
-  `${process.env.FRONT_END}`
+  `${process.env.FRONT_END}`, true
 ];
 
 app.use(cors({
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 
 //Index
 app.get('/', (req, res, next) => {
-    //const { userId, sessionId } = req.auth;
+    // const { userId, sessionId } = req.auth;
     // const template = "development";
     // const result = clerkClient.sessions.getToken(sessionId, template)
     res.status(200).json({success: "Index operational"})

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bookingController = require("../controllers/bookingController");
-const { verifyAdmin } = require("../middleware/authMiddleware");
+// const { verifyAdmin } = require("../middleware/authMiddleware");
 const nodemailer = require("nodemailer");
 
 const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL;
@@ -20,10 +20,10 @@ router.route("/:id").get(bookingController.getBookingById);
 //Email route - notification
 router.route("/:notify").post(bookingController.notifyBooking);
 
-//secure routes
-router.route("/create").post(bookingController.createBooking, verifyAdmin);
-router.route("/update/:id").put(bookingController.updateBooking, verifyAdmin);
-router.route("/delete/:id").delete(bookingController.deleteBooking, verifyAdmin);
+//secure routes - verifyAdmin
+router.route("/create").post(bookingController.createBooking);
+router.route("/update/:id").put(bookingController.updateBooking);
+router.route("/delete/:id").delete(bookingController.deleteBooking);
 
 module.exports = router;
 
