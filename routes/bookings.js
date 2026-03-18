@@ -2,10 +2,23 @@ const express = require("express");
 const router = express.Router();
 const bookingController = require("../controllers/bookingController");
 const { verifyAdmin } = require("../middleware/authMiddleware");
+const nodemailer = require("nodemailer");
+
+const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL;
+
+const transporter = nodemailer.createTransport({
+  service: "gmail", // or your preferred SMTP provider
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 router.route("/").get(bookingController.getAllBookings); // open to all logged-in users
 router.route("/:id").get(bookingController.getBookingById); 
 
+//Email route - notification
+router.route("/:notify").post(bookingController.notifyBooking);
 
 //secure routes
 router.route("/create").post(bookingController.createBooking, verifyAdmin);
