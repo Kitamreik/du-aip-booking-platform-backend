@@ -11,7 +11,7 @@ const verifyAdmin = requireAuth(async (req, res, next) => {
     const role = user.publicMetadata.role;
     console.log(user, role)
 
-    if ( role === "admin") {
+    if ( role === "fellow") {
       return next();
     } else {
       return res.status(403).json({ error: "Access denied. Admins only." });

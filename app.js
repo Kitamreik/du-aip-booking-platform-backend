@@ -38,9 +38,9 @@ app.use((req, res, next) => {
 
 //Index
 app.get('/', (req, res, next) => {
-    // const { userId, sessionId } = req.auth;
+    const { userId, sessionId } = req.auth;
     // const template = "development";
-    // const result = clerkClient.sessions.getToken(sessionId, template)
+    // const result = clerkClient.sessions.getToken(sessionId)
     res.status(200).json({success: "Index operational"})
 })
 
@@ -49,7 +49,7 @@ app.get('/logout', (req, res, next) => {
 })
 
 // Protected route: only accessible with valid Clerk session 
-app.get("/auth-state", requireAuth(), (req, res, next) => {
+app.get("/auth-state", (req, res, next) => {
     const { userId, sessionId } = req.auth;
   
     res.status(200).json({
@@ -60,7 +60,7 @@ app.get("/auth-state", requireAuth(), (req, res, next) => {
   });
 
 const bookingsRouter = require("./routes/bookings");
-app.use("/api/bookings", requireAuth(), bookingsRouter); //D
+app.use("/api/bookings", bookingsRouter); //D
 
 //require('./config/connection');
 
