@@ -16,7 +16,7 @@ app.use(clerkMiddleware());
 
 const allowedOrigins = [
   `http://localhost:${process.env.REACT_PORT}`,
-  `${process.env.FRONT_END}`, true
+  `${process.env.FRONT_END}`
 ];
 
 app.use(cors({
