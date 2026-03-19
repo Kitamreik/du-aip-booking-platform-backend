@@ -10,12 +10,12 @@ const CLERK_API_BASE = "https://api.clerk.dev/v1";
 const userId = process.argv[0]; // Run like: node scripts/generateToken.js user_abc123, originally 2
 
 if (!CLERK_SECRET_KEY) {
-  console.error("❌ Missing CLERK_SECRET_KEY in .env");
+  console.error("Missing CLERK_SECRET_KEY in .env");
   process.exit(1);
 } //passes
 
 if (!userId) {
-  console.error("❌ Usage: node scripts/generateToken.js <clerk_user_id>");
+  console.error("Usage: node scripts/generateToken.js <clerk_user_id>");
   process.exit(1);
 } //passes
 
@@ -37,15 +37,15 @@ async function generateSessionToken() {
     const token = session.last_active_token;
 
     if (!token) {
-      console.error("❌ No token returned. Check user_id or Clerk configuration.");
+      console.error("No token returned. Check user_id or Clerk configuration.");
       process.exit(1);
     }
 
-    console.log("✅ Clerk session token generated:");
+    console.log("Clerk session token generated:");
     console.log(`\nBearer ${token}\n`);
-    console.log("🔁 Use this token in your Authorization headers for testing protected routes.");
+    console.log("Use this token in your Authorization headers for testing protected routes.");
   } catch (error) {
-    console.error("❌ Failed to generate token:");
+    console.error("Failed to generate token:");
     if (error.response) {
       console.error(error.response.data);
     } else {

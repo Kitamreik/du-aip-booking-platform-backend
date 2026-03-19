@@ -1,18 +1,34 @@
-const knex = require("knex")(require("../knexfile").development);
+// mongoose
+// schema
+const mongoose = require('mongoose');
+const {Schema} = mongoose;
 
-//knex("bookings").select("*") fetches all bookings.
-const getAllBookings = () => knex("bookings").select("*");
+// call the schema
+// mod exports start/schema call
+const bookingSchema = new Schema ({
+  name: {
+      type: String,
+      required: [true, 'A name is required.'],
+      minlength:[1,'Minimum length for the full name is 6 characters.']
+  },
+  service: {
+      type: String,
+  },
+  practitioner: {
+      type: String,
+  },
+  dateTime: {
+      type: String,
+  },
+  duration: {
+      type: String,
+  }
+});
 
-//where({ id }).first() ensures we fetch a single booking.
-const getBookingById = (id) => knex("bookings").where({ id }).first();
+const Booking = mongoose.model('Booking', bookingSchema);
 
-//insert(data).returning("*") adds a new booking and returns the inserted row.
-const createBooking = (data) => knex("bookings").insert(data).returning("*");
+// end
+module.exports = Booking;
+// mod exports
 
-//update(data).returning("*") modifies a booking and returns the updated row.
-const updateBooking = (id, data) => knex("bookings").where({ id }).update(data).returning("*");
-
-//where({ id }).del() deletes a booking.
-const deleteBooking = (id) => knex("bookings").where({ id }).del();
-
-module.exports = { getAllBookings, getBookingById, createBooking, updateBooking, deleteBooking };
+// DO NOT TOUCH

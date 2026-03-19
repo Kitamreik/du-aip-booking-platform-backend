@@ -1,15 +1,15 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
- */
-exports.seed = function(knex) {
-  return knex("bookings").del().then(() => {
-    return knex("bookings").insert([
-      { customer_name: "Alice", service: "Haircut", booking_time: "2025-03-15T12:00:00Z", status: "confirmed" },
-      { customer_name: "Bob", service: "Massage", booking_time: "2025-03-16T15:30:00Z", status: "pending" }
-    ]);
-  });
-};
+// /**
+//  * @param { import("knex").Knex } knex
+//  * @returns { Promise<void> } 
+//  */
+// exports.seed = function(knex) {
+//   return knex("bookings").del().then(() => {
+//     return knex("bookings").insert([
+//       { customer_name: "Alice", service: "Haircut", booking_time: "2025-03-15T12:00:00Z", status: "confirmed" },
+//       { customer_name: "Bob", service: "Massage", booking_time: "2025-03-16T15:30:00Z", status: "pending" }
+//     ]);
+//   });
+// };
 
 //Generated
 /*

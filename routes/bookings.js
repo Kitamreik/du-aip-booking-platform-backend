@@ -16,6 +16,7 @@ const transporter = nodemailer.createTransport({
 
 router.route("/").get(bookingController.getAllBookings); // open to all logged-in users
 router.route("/:id").get(bookingController.getBookingById); 
+router.route("/:id").put(bookingController.getBookingById); //test 
 
 //Email route - notification
 router.route("/:notify").post(bookingController.notifyBooking);

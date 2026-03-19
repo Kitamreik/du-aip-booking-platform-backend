@@ -1,9 +1,29 @@
 const express = require('express');
+const passport = require('passport');
+const bookingData = require("../data/booking-data");
 const Booking = require("../models/bookingModel");
 
 module.exports = {
   getAllBookings: async (req, res, next) => {
-    const bookings = await Booking.getAllBookings();
+    const {name, service, practitioner, dateTime, duration} = req.body;
+    const newBooking = new Booking ({
+      name: name,
+      service: service,
+      practitioner: practitioner,
+      dateTime: dateTime,
+      duration: duration
+    });
+    newBooking.save();
+
+    const bookings = await Booking.find({}, (error, bookingArray) => {
+          if(error){
+            return error;
+          } else {
+            res.json({
+              bookingArray: bookingArray
+            });
+          }
+        });
     res.json(bookings);
   },
   getBookingById: async (req, res, next) => {
@@ -11,17 +31,42 @@ module.exports = {
     booking ? res.json(booking) : res.status(404).json({ error: "Not found" });
   },
   createBooking: async (req, res, next) => {
-    const newBooking = await Booking.createBooking(req.body);
-    res.status(201).json(newBooking);
+    const {name, service, practitioner, dateTime, duration} = req.body;
+    const newBooking = new Booking ({
+      name: name,
+      service: service,
+      practitioner: practitioner,
+      dateTime: dateTime,
+      duration: duration
+    });
+    newBooking.save();
+
+    const createBooking = await Booking.newBooking(req.body);
+    res.status(201).json(createBooking);
   },
   updateBooking: async (req, res, next) => {
-    const updatedBooking = await Booking.updateBooking(req.params.id, req.body);
+    const {name, service, practitioner, dateTime, duration} = req.body;
+    // const updatedBooking = await Booking.updateBooking(req.params.id, req.body);
+    const updatedBooking = await Booking.findByIdAndUpdate(_id, {$set: {
+            name: name,
+            service: service,
+            practitioner: practitioner,
+            dateTime: dateTime,
+            duration: duration
+          }}, {new: true}, error => {
+            if(error) {
+              return error;
+            } else {
+              // 
+              response.json('Submission successful');
+            }
+          })    
     res.json(updatedBooking);
   },
   deleteBooking: async (req, res, next) => {
     await Booking.deleteBooking(req.params.id);
     res.status(204).send();
-    res.json("Entry deleted")
+    res.json("Entry deleted");
   },
   notifyBooking: async (req, res, next) => {
     const { customer_name, service, booking_time, practitioner } = req.body;
