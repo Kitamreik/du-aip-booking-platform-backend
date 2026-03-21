@@ -128,7 +128,7 @@ app.get('/auth/google', (req, res, next) => {
 });
 
 app.get('/auth/google/admin', (req, res, next) => {
-  passport.authenticate('google', {failureRedirect: '/login'}),
+  passport.authenticate('google', {failureRedirect: '/sign-in'}),
     function(request, response, next) {
       // Successful Authentication Authorization
       response.redirect('/admin');

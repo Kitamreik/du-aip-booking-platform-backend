@@ -27,7 +27,7 @@ module.exports = {
     res.json(bookings);
   },
   getBookingById: async (req, res, next) => {
-    const booking = await Booking.getBookingById(req.params.id);
+    const booking = await Booking.findOne(req.params.id);
     booking ? res.json(booking) : res.status(404).json({ error: "Not found" });
   },
   createBooking: async (req, res, next) => {
